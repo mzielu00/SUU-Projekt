@@ -56,13 +56,13 @@ For the microservices that handle city data, we will be using Java as the progra
 
 ## Case study concept description 
 
-In this case study, we will explore how Kubernetes Control Plane (KCP) can be used to manage a system that mimics a smart city. Specifically, we will focus on how the system can be designed to run on different underlying hardware architectures, such as x86 and ARM, while also ensuring the security of the entire system.
+In this case study, we will explore how Kubernetes Control Plane (KCP) can be used to manage a system that mimics a smart city. Specifically, we will focus on how the system can be designed to run on different underlying hardware architectures, while also ensuring the security of the entire system.
 
 The smart city system is designed to collect data from various sensors placed around the city, aggregate it using edge clusters, and forward it to a central server for processing and analysis. To ensure that the system can run on different hardware architectures, we will use KCP to manage the Kubernetes control plane components.
 
 Additionally, we will implement security measures throughout the entire stack to ensure the security of the system. This will include implementing encryption, secure networking, authentication, and access controls.
 
-We will use containerization technologies, such as Docker and Kubernetes, to package and deploy the different components of the system. The container images will be designed to be architecture-agnostic, allowing them to run on different hardware architectures, such as x86 and ARM.
+We will use containerization technologies, such as Docker and Kubernetes, to package and deploy the different components of the system. The container images will be designed to be architecture-agnostic, allowing them to run on different hardware architectures.
 
 Kubernetes will be used to manage the different components of the system, such as the edge clusters and the central server. Kubernetes provides a consistent and uniform platform for managing the different components, regardless of the underlying hardware architecture.
 
