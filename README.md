@@ -66,7 +66,7 @@ Kubernetes will be used to manage the different components of the system, such a
 
 With KCP, we will be able to monitor and manage the Kubernetes control plane components, ensuring that the system operates at optimal performance levels. KCP will also enable fine-grained access controls and network segmentation to ensure the security of the system.
 
-Overall, this case study demonstrates how Kubernetes Control Plane (KCP) solutions can be used to manage a smart city system that can run on different underlying hardware architectures while also ensuring the security of the system. By using containerization technologies, Kubernetes, and KCP, we can abstract away the underlying hardware, provide a consistent and uniform platform for deploying and managing the system, and implement security measures throughout the entire stack to ensure the security of the system.
+Overall, this case study demonstrates how Kubernetes Control Plane (KCP) solutions can be used to manage a smart city system that can run on different underlying hardware architectures while also ensuring the security of the system. By using containerization technologies, Kubernetes, and KCP, we can abstract away the underlying hardware, provide a consistent and uniform platform for deploying and managing the system.
 
 ## Solution architecture
 
