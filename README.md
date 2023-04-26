@@ -70,6 +70,16 @@ Overall, this case study demonstrates how Kubernetes Control Plane (KCP) solutio
 
 ## Solution architecture
 
+In order to carry out the Demo, we plan to simulate the air quality control system presented earlier using Kubernetes clusters with the help of Kubernetes Control Plane.
+
+We anticipate a hierarchical cluster architecture, where the main service providing data to users has access to all services running on edge clusters in order to access their data.
+
+![plot](./photos/cluster_architecture.png)
+
+By using KCP, communication between clusters will be done through a simple API.
+
+Each of the clusters will have a main service (central cluster) and edge services (edge clusters) that will be created using Java and Spring. They will be simple services designed to simulate the operation of a real smart city for the purpose of demonstrating the use of KCP.
+
 ## Environment configuration description
 
 ## Installation method
