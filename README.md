@@ -58,7 +58,7 @@ For the microservices that handle city data, we will be using Java as the progra
 
 In this case study, we will explore how Kubernetes Control Plane (KCP) can be used to manage a system that mimics a smart city. Specifically, we will focus on how the system can be designed to run on different underlying hardware architectures, while also ensuring the security of the entire system.
 
-The smart city system is designed to collect data from various sensors placed around the city, aggregate it using edge clusters, and forward it to a central server for processing and analysis. To ensure that the system can run on different hardware architectures, we will use KCP to manage the Kubernetes control plane components.
+The smart city system is designed to collect data from various sensors placed around the city, aggregate it using edge clusters, and forward it to a central server for processing and analysis. In our project, we will focus on measuring the air quality in the city area. The division will therefore consist of assigning edge clusters to the function of collecting and storing data from sensors in their area, extracting their average values. The central cluster will be responsible for collecting data from the entire city and making it available to the user (quick access to data from a selected location).
 
 We will use containerization technologies, such as Docker and Kubernetes, to package and deploy the different components of the system. The container images will be designed to be architecture-agnostic, allowing them to run on different hardware architectures.
 
