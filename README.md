@@ -82,6 +82,12 @@ Each of the clusters will have a main service (central cluster) and edge service
 
 ## Environment configuration description
 
+To create a Demo application using Java Spring and Kubernetes KCP, several tools need to be installed and configured on the local machine. 
+
+The main tools required for the application are the Kubernetes command-line interface, called kubectl, and the Kubernetes control plane (KCP) tool. Kubectl is a command-line tool used to deploy and manage applications on a Kubernetes cluster. It provides a simple and intuitive way to interact with the Kubernetes cluster and manage the whole application. KCP is a tool used to manage the Kubernetes control plane components, such as the API server, or scheduler. It provides a centralized view of the Kubernetes control plane and enables a user to manage and monitor the control plane components. In addition to kubectl and KCP, it is required to have a local Kubernetes cluster to deploy and manage microservices. In this case, we will use Minikube, which is a tool that allows us to run a single-node Kubernetes cluster on our local machine. Minikube is easy to set up and provides a lightweight and portable way to test microservices locally. To package our microservices and dependencies into a container image, we will need to use Docker, which is a popular containerization platform that enables users to package their applications and dependencies into a container image. Finally, to develop and implement our proper microservices using Java and SpringBoot, we will need the Java Development Kit (JDK) to compile the Java code, and Apache Maven to manage dependencies and build the application.
+
+By installing and configuring all of these tools on your local machine, you can create and deploy a microservice application using Java Spring and Kubernetes KCP.
+
 ## Installation method
 
 ## How to reproduce
