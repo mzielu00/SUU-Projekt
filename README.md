@@ -58,7 +58,19 @@ For the microservices that handle city data, we will be using Java as the progra
 
 In this case study, we will explore how Kubernetes Control Plane (KCP) can be used to manage a system that mimics a smart city. Specifically, we will focus on how the system can be designed to run on different underlying hardware architectures, while also ensuring the security of the entire system.
 
-The smart city system is designed to collect data from various sensors placed around the city, aggregate it using edge clusters, and forward it to a central server for processing and analysis. In our project, we will focus on measuring the air quality in the city area. The division will therefore consist of assigning edge clusters to the function of collecting and storing data from sensors in their area, extracting their average values. The central cluster will be responsible for collecting data from the entire city and making it available to the user (quick access to data from a selected location).
+The smart city system is designed to collect data from various sensors placed around the city. The system follows a distributed architecture where edge clusters are responsible for collecting and storing data from sensors within their respective areas. These edge clusters aggregate the collected data and forward it to a central server for processing and analysis. The central cluster is responsible for collecting data from the entire city and making it available to users, enabling quick access to data from a selected location. This approach allows for efficient data management and reduces the load on the central server and by utilizing edge servers, the system can minimize latency and ensure quick operations without the need to transfer data to the main server, ultimately improving efficiency and responsiveness.
+
+The sensor capabilities include:
+
+- Air Pollution Monitoring: The smart city system utilizes pollution sensors to measure air quality in various locations throughout the city. These sensors continuously monitor the levels of pollutants in the air, such as particulate matter, nitrogen dioxide, and ozone. 
+
+- Traffic Management: The pollution sensors can also be used to manage traffic in the city. These sensors collect data on traffic flow, congestion levels, and road occupancy. By analyzing this real-time data, the system can identify areas with heavy traffic and adjust the traffic flow accordingly.
+
+- Alerting Citizens: The smart city system is equipped with sensors that enable rapid alerting of citizens in urgent situations. These sensors can detect critical events such as fires, natural disasters, or security breaches. When such events occur, the system immediately triggers alerts to notify citizens and provide them with relevant information and instructions to ensure their safety.
+
+- Self-driving Cars: The smart city system incorporates sensors that detect the proximity of objects around self-driving cars, including other vehicles, bicycles, and pedestrians. These sensors continuously monitor the environment, allowing the system to quickly assess potential dangers and react accordingly.
+
+- Parking Space Updates: The system can offer real-time updates on available parking spaces near the sensors. By monitoring parking spaces in proximity to the sensors, the system can inform drivers about the availability of free parking spaces. This feature optimizes traffic flow by reducing the time spent searching for parking spots.
 
 We will use containerization technologies, such as Docker and Kubernetes, to package and deploy the different components of the system. The container images will be designed to be architecture-agnostic, allowing them to run on different hardware architectures.
 
@@ -66,7 +78,9 @@ Kubernetes will be used to manage the different components of the system, such a
 
 With KCP, we will be able to monitor and manage the Kubernetes control plane components, ensuring that the system operates at optimal performance levels. KCP will also enable fine-grained access controls and network segmentation to ensure the security of the system.
 
-Overall, this case study demonstrates how Kubernetes Control Plane (KCP) solutions can be used to manage a smart city system that can run on different underlying hardware architectures while also ensuring the security of the system. By using containerization technologies, Kubernetes, and KCP, we can abstract away the underlying hardware, provide a consistent and uniform platform for deploying and managing the system.
+Overall, this case study demonstrates how Kubernetes Control Plane (KCP) solutions can effectively manage a smart city system running on different underlying hardware architectures while prioritizing security. By leveraging containerization technologies, Kubernetes, and KCP, the system abstracts away the complexities of the underlying hardware, providing a consistent and uniform platform for deploying and managing the system.
+
+Furthermore, by utilizing edge servers, the system minimizes latency and ensures quick operations without the need to transfer data to the main server. This optimization enables faster execution of tasks such as alerting citizens about urgent situations, providing real-time updates on parking availability, dynamically managing traffic flow, and assisting self-driving cars. The utilization of edge servers enhances the overall responsiveness of the system, improving efficiency and user experiences.
 
 ## Solution architecture
 
