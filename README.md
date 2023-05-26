@@ -108,19 +108,15 @@ To set up the required tools for your Smart City project, you can follow the ins
 
 1. Kubernetes:
 
-- Visit the official Kubernetes documentation at https://kubernetes.io/docs/setup/ for detailed installation instructions.
-- Follow the provided guidelines specific to your operating system and preferred deployment method to install Kubernetes.
+It is essencial to follow the the guidelines provided in the official documentation at https://kubernetes.io/docs/setup/ to install Kubernetes and its command    line tool - kubectl.
 
 2. Kubernetes Control Plane (KCP):
 
-- Refer to the KCP documentation available at https://docs.kcp.io/kcp/main/ for comprehensive information on KCP and its installation process.
-- Follow the instructions provided in the documentation to set up and configure KCP on your Kubernetes cluster.
+To install KCP one should also stick to the available KCP documentation: https://docs.kcp.io/kcp/main/ and follow the instructions provided in the documentation to set up and configure KCP on your Kubernetes cluster.
 
 3. Cluster Kind:
 
-- Kind (Kubernetes IN Docker) is a tool that allows you to run local Kubernetes clusters using Docker containers. It provides an easy and lightweight way to create and manage Kubernetes clusters for testing and development purposes.
-- Visit the Cluster Kind documentation at https://kind.sigs.k8s.io/docs/user/quick-start/ for a quick-start guide on installing and setting up Cluster Kind.
-- Follow the provided instructions to install Cluster Kind on your local machine.
+Kind (Kubernetes IN Docker) is a tool that allows you to run local Kubernetes clusters using Docker containers. It provides an easy and lightweight way to create and manage Kubernetes clusters for testing and development purposes. You can find a quick-start guide on installing and setting up a Kind Cluster on your local machine at https://kind.sigs.k8s.io/docs/user/quick-start/.
 
 By following the installation guides provided in the respective documentation links, you will be able to install Kubernetes, KCP, and Cluster Kind, which are crucial for developing and deploying your Smart City application. These tools will enable you to manage and secure your microservices effectively, ensuring a robust and efficient system.
 
