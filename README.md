@@ -104,6 +104,28 @@ By installing and configuring all of these tools on your local machine, you can 
 
 ## Installation method
 
+To set up the required tools for your Smart City project, you can follow the installation steps outlined below. These steps will guide you through installing Kubernetes, Kubernetes Control Plane (KCP), and Cluster Kind, which are essential components for deploying and managing your microservices application.
+
+1. Kubernetes:
+
+- Visit the official Kubernetes documentation at https://kubernetes.io/docs/setup/ for detailed installation instructions.
+- Follow the provided guidelines specific to your operating system and preferred deployment method to install Kubernetes.
+
+2. Kubernetes Control Plane (KCP):
+
+- Refer to the KCP documentation available at https://docs.kcp.io/kcp/main/ for comprehensive information on KCP and its installation process.
+- Follow the instructions provided in the documentation to set up and configure KCP on your Kubernetes cluster.
+
+3. Cluster Kind:
+
+- Kind (Kubernetes IN Docker) is a tool that allows you to run local Kubernetes clusters using Docker containers. It provides an easy and lightweight way to create and manage Kubernetes clusters for testing and development purposes.
+- Visit the Cluster Kind documentation at https://kind.sigs.k8s.io/docs/user/quick-start/ for a quick-start guide on installing and setting up Cluster Kind.
+- Follow the provided instructions to install Cluster Kind on your local machine.
+
+By following the installation guides provided in the respective documentation links, you will be able to install Kubernetes, KCP, and Cluster Kind, which are crucial for developing and deploying your Smart City application. These tools will enable you to manage and secure your microservices effectively, ensuring a robust and efficient system.
+
+Please note that the provided links are subject to change. It is recommended to visit the official documentation websites for the most up-to-date installation instructions and guidelines for each tool.
+
 ## How to reproduce
 
 ### Infrastructure as Code approach
