@@ -22,8 +22,24 @@ public class RandomDataProvider {
     return new AirPollutionStatus(random.nextInt(PM10_bound), random.nextInt(PM2_5_bound), random.nextInt(PM1_bound));
   }
 
+  private static ParkingStatus generateRandomParkingStatus() {
+    int totalSpaces = random.nextInt(150);
+    int availableSpaces = random.nextInt(totalSpaces + 1);
+    return new ParkingStatus(availableSpaces, totalSpaces);
+  }
+
+  private static AlertingStatus generateRandomAlertType() {
+    AlertingStatus[] alertTypes = AlertingStatus.values();
+    int index = random.nextInt(alertTypes.length);
+    return alertTypes[index];
+  }
+
+  private static SelfDrivingCarStatus generateDrivingConditionStatus() {
+    return new SelfDrivingCarStatus(random.nextInt(4));
+  }
+
   public DataTransferHolder generateSingleRandomData() {
-    return new DataTransferHolder(generateRandomAirPollutionStatus(), generateRandomTrafficStatus());
+    return new DataTransferHolder(generateRandomAirPollutionStatus(), generateRandomTrafficStatus(), generateRandomParkingStatus(), generateRandomAlertType(), generateDrivingConditionStatus());
   }
 
 }

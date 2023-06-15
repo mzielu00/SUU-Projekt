@@ -12,8 +12,13 @@ public class DataTransferHolder {
    */
   private final AirPollutionStatus airPollutionStatus;
   private final TrafficStatus trafficStatus;
+  private final ParkingStatus parkingStatus;
+  private  final AlertingStatus alertingStatus;
+  private final SelfDrivingCarStatus selfDrivingCarStatus;
 
   public String toString(){
-    return  "air pollution: " + airPollutionStatus.toString() + ", traffic status: " + trafficStatus.getDescription();
+    return  "air pollution: " + airPollutionStatus.toString() + ", traffic status: " + trafficStatus.getDescription()
+            + ", parking spaces: " + parkingStatus.toString() + ", alerts: " + alertingStatus.getMessage()
+            + ", self-driving cars conditions: " + selfDrivingCarStatus.checkConditions();
   }
 }
