@@ -26,8 +26,20 @@ public class Edge1Controller {
     }
 
     @GetMapping("/{id}") // Get request that returns a specific student with the provided Id
-    public ResponseEntity<TrafficCongestion> getStudentById(@PathVariable String id) {
+    public ResponseEntity<TrafficCongestion> getTrafficCongestionById(@PathVariable String id) {
         return new ResponseEntity<>(repository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new IllegalStateException("Edge1: traffic not found")), HttpStatus.OK);
+    }
+
+    @GetMapping("/average/congestion")
+    public ResponseEntity<Double> getAverageTrafficCongestion() {
+        List<TrafficCongestion> congestionList = repository.findAll();
+        int totalCongestionIndex = congestionList.stream()
+                .mapToInt(TrafficCongestion::getCongestionIndex)
+                .sum();
+
+        double average = totalCongestionIndex / (double) congestionList.size();
+
+        return ResponseEntity.ok(average);
     }
 }

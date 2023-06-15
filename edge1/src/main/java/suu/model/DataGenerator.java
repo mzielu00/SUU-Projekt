@@ -17,7 +17,7 @@ public class DataGenerator {
     @PostConstruct
     public void generateData() {
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             int traffic = getRandomTrafficIndex();
             TrafficCongestion trafficCongestion = new TrafficCongestion();
             trafficCongestion.setCongestionIndex(traffic);
