@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import suu.clients.Edge1Connector;
+import suu.model.AirPollutionStatus;
 
 @RestController
 @RequestMapping("/data")
@@ -22,5 +23,12 @@ public class CentralController {
         Double edge1Traffic = edge1Connector.getTrafficCongestionAverageEdge1();
 
         return ResponseEntity.ok(edge1Traffic);
+    }
+
+    @GetMapping("/air")
+    public ResponseEntity<AirPollutionStatus> getAverageAirPollution() {
+        AirPollutionStatus airPollutionStatus = edge1Connector.getAirPollutionAverageEdge1();
+
+        return ResponseEntity.ok(airPollutionStatus);
     }
 }
