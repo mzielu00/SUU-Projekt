@@ -1,11 +1,11 @@
 package suu.model;
 
-
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import suu.repository.AirPollutionRepository;
 import suu.repository.TrafficRepository;
+import suu.repository.ParkingRepository;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,6 +18,9 @@ public class DataGenerator {
     @Autowired
     private AirPollutionRepository airPollutionRepository;
 
+    @Autowired
+    private ParkingRepository parkingRepository;
+
     @PostConstruct
     public void generateData() {
 
@@ -29,10 +32,13 @@ public class DataGenerator {
 
             AirPollutionStatus airPollutionStatus = generateRandomAirPollutionStatus();
             airPollutionRepository.save(airPollutionStatus);
+
+            ParkingSpace parkingSpace = generateRandomParkingSpace();
+            parkingRepository.save(parkingSpace);
         }
     }
 
-    private int generateRandomTrafficIndex(){
+    private int generateRandomTrafficIndex() {
         return ThreadLocalRandom.current().nextInt(0, 300);
     }
 
@@ -46,5 +52,10 @@ public class DataGenerator {
         airPollutionStatus.setPM1(ThreadLocalRandom.current().nextInt(1, PM1_bound));
         return airPollutionStatus;
     }
-}
 
+    private static ParkingSpace generateRandomParkingSpace() {
+        ParkingSpace parkingSpace = new ParkingSpace();
+        parkingSpace.setOccupied(ThreadLocalRandom.current().nextBoolean());
+        return parkingSpace;
+    }
+}

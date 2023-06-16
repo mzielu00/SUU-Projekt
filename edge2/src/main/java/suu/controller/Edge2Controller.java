@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import suu.model.AirPollutionStatus;
+import suu.model.ParkingSpace;
 import suu.model.TrafficCongestion;
 import suu.repository.AirPollutionRepository;
+import suu.repository.ParkingRepository;
 import suu.repository.TrafficRepository;
 
 import java.util.List;
@@ -18,14 +20,17 @@ import java.util.List;
 public class Edge2Controller {
     private final TrafficRepository trafficRepository;
     private final AirPollutionRepository airPollutionRepository;
+    private final ParkingRepository parkingRepository;
 
-    public Edge2Controller(TrafficRepository trafficRepository, AirPollutionRepository airPollutionRepository) {
+    public Edge2Controller(TrafficRepository trafficRepository, AirPollutionRepository airPollutionRepository,
+            ParkingRepository parkingRepository) {
         this.trafficRepository = trafficRepository;
         this.airPollutionRepository = airPollutionRepository;
+        this.parkingRepository = parkingRepository;
     }
 
     @GetMapping("/traffic")
-    public ResponseEntity<List<TrafficCongestion>> getAll() {
+    public ResponseEntity<List<TrafficCongestion>> getTrafficAll() {
         return new ResponseEntity<>(trafficRepository.findAll(), HttpStatus.OK);
     }
 
@@ -36,7 +41,7 @@ public class Edge2Controller {
     }
 
     @GetMapping("/traffic/average")
-    public ResponseEntity<Double> getAverageTrafficCongestion() {
+    public ResponseEntity<Double> getTrafficCongestionAverage() {
         List<TrafficCongestion> congestionList = trafficRepository.findAll();
         int totalCongestionIndex = congestionList.stream()
                 .mapToInt(TrafficCongestion::getCongestionIndex)
@@ -48,7 +53,7 @@ public class Edge2Controller {
     }
 
     @GetMapping("/air/average")
-    public ResponseEntity<AirPollutionStatus> getAverageAirPollution() {
+    public ResponseEntity<AirPollutionStatus> getAirPollutionAverage() {
         List<AirPollutionStatus> airPollutionStatusList = airPollutionRepository.findAll();
 
         double averagePM10 = airPollutionStatusList.stream()
@@ -72,5 +77,30 @@ public class Edge2Controller {
         result.setPM2_5((int) averagePM2_5);
 
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/parking")
+    public ResponseEntity<List<ParkingSpace>> getParkingAll() {
+        return new ResponseEntity<>(parkingRepository.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/parking/{id}")
+    public ResponseEntity<ParkingSpace> getParkingById(@PathVariable String id) {
+        return new ResponseEntity<>(parkingRepository.findById(Long.valueOf(id))
+                .orElseThrow(() -> new IllegalStateException("Edge2: parking space not found")), HttpStatus.OK);
+    }
+
+    @GetMapping("/parking/average")
+    public ResponseEntity<Double> getParkingAverage() {
+        List<ParkingSpace> parkingList = parkingRepository.findAll();
+
+        double averageParking = parkingList.stream()
+                .map(ParkingSpace::getOccupied)
+                .map(b -> b ? 1 : 0)
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0.0);
+
+        return ResponseEntity.ok(averageParking);
     }
 }

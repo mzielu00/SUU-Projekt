@@ -18,13 +18,14 @@ import java.util.List;
 public class Edge1Controller {
     private final TrafficRepository trafficRepository;
     private final AirPollutionRepository airPollutionRepository;
+
     public Edge1Controller(TrafficRepository trafficRepository, AirPollutionRepository airPollutionRepository) {
         this.trafficRepository = trafficRepository;
         this.airPollutionRepository = airPollutionRepository;
     }
 
-    @GetMapping ("/traffic")
-    public ResponseEntity<List<TrafficCongestion>> getAll() {
+    @GetMapping("/traffic")
+    public ResponseEntity<List<TrafficCongestion>> getTrafficAll() {
         return new ResponseEntity<>(trafficRepository.findAll(), HttpStatus.OK);
     }
 
@@ -35,7 +36,7 @@ public class Edge1Controller {
     }
 
     @GetMapping("/traffic/average")
-    public ResponseEntity<Double> getAverageTrafficCongestion() {
+    public ResponseEntity<Double> getTrafficCongestionAverage() {
         List<TrafficCongestion> congestionList = trafficRepository.findAll();
         int totalCongestionIndex = congestionList.stream()
                 .mapToInt(TrafficCongestion::getCongestionIndex)
@@ -47,7 +48,7 @@ public class Edge1Controller {
     }
 
     @GetMapping("/air/average")
-    public ResponseEntity<AirPollutionStatus> getAverageAirPollution() {
+    public ResponseEntity<AirPollutionStatus> getAirPollutionAverage() {
         List<AirPollutionStatus> airPollutionStatusList = airPollutionRepository.findAll();
 
         double averagePM10 = airPollutionStatusList.stream()
@@ -66,9 +67,9 @@ public class Edge1Controller {
                 .orElse(0.0);
 
         AirPollutionStatus result = new AirPollutionStatus();
-        result.setPM1((int)averagePM1);
-        result.setPM10((int)averagePM10);
-        result.setPM2_5((int)averagePM2_5);
+        result.setPM1((int) averagePM1);
+        result.setPM10((int) averagePM10);
+        result.setPM2_5((int) averagePM2_5);
 
         return ResponseEntity.ok(result);
     }
