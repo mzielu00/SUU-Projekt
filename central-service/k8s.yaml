@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: central-service
 spec:
   selector:
     matchLabels:
-      app: myapp
+      app: central-service
   template:
     metadata:
       labels:
-        app: myapp
+        app: central-service
     spec:
       containers:
-        - name: myapp
-          image: 698790155454.dkr.ecr.us-east-1.amazonaws.com/myapp:latest
+        - name: central-service
+          image: 531130751634.dkr.ecr.us-east-1.amazonaws.com/mein_central_repo:latest
           resources:
             limits:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
           ports:
             - name: tcp
@@ -25,10 +25,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: myapp
+  name: central-service
 spec:
   selector:
-    app: myapp
+    app: central-service
   ports:
     - port: 8250
       targetPort: 8250
