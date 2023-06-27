@@ -18,6 +18,12 @@ public class CentralController {
         this.edge1Connector = edge1Connector;
     }
 
+
+    @GetMapping("/")
+    public String hello() {
+        return "Hello World!";
+    }
+
     @GetMapping("/traffic")
     public ResponseEntity<Double> getAverageTrafficCongestion() {
         Double edge1Traffic = edge1Connector.getTrafficCongestionAverageEdge1();
