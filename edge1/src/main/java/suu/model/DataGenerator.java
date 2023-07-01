@@ -1,12 +1,11 @@
 package suu.model;
 
-
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import suu.repository.AirPollutionRepository;
 import suu.repository.TrafficRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
