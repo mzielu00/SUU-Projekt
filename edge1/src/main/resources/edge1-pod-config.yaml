@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edge1
+spec:
+  selector:
+    matchLabels:
+      app: edge1
+  template:
+    metadata:
+      labels:
+        app: edge1
+    spec:
+      containers:
+        - name: edge1
+          image: 052724743115.dkr.ecr.us-east-1.amazonaws.com/my_repo:latest
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - name: tcp
+              containerPort: 8260
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: edge1
+spec:
+  selector:
+    app: edge1
+  ports:
+    - port: 8260
+      targetPort: 8260
+  type: LoadBalancer
