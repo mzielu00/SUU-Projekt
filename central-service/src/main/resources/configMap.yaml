@@ -4,5 +4,5 @@ metadata:
   name: central
 data:
   application.properties: |-
-    central.edge1-ip=localhost
+    central.edge1-ip=af8fa2392a8cd4958a3c4327c360edd6-457831222.us-east-1.elb.amazonaws.com:8260
     central.edge2-ip=

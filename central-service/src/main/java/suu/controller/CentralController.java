@@ -18,7 +18,6 @@ public class CentralController {
         this.edge1Connector = edge1Connector;
     }
 
-
     @GetMapping("/")
     public String hello() {
         return "Hello World!";
