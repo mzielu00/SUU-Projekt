@@ -126,16 +126,117 @@ Please note that the provided links are subject to change. It is recommended to 
 
 ### Infrastructure as Code approach
 
+In our microservices Java Spring project, we have adopted the Infrastructure as Code approach to manage our infrastructure and deployments efficiently. We have divided our code into different modules, each representing a distinct service such as the central service, edge1, edge2, and so on. To facilitate testing and development, we have created mocks for pollution and traffic data, which we use when retrieving data from specific endpoints.
+
+![img_6.png](img_6.png)
+
+The central service, implemented in the CentralController class, handles requests and acts as a gateway to the other services. For example it communicates with the edge1 service using the Edge1Connector interface, which is a Feign client. This interface defines the endpoints and methods to retrieve average traffic congestion and air pollution data from edge1.
+
+![img.png](img.png)
+
+For deployment, we leverage the Spring Cloud Kubernetes framework and AWS services. The central module is deployed as a Kubernetes Deployment using the provided deployment YAML file. This file specifies the container image, resource limits, and the exposed port. Additionally, we configure a Kubernetes Service to expose the central service externally using a LoadBalancer type.
+
+![img_3.png](img_3.png)
+
+Similarly, every edge module follows a similar pattern. For example in the edge1 module, the Edge1Controller class handles requests related to traffic and air pollution data in the edge1 service. 
+
+![img_4.png](img_4.png)
+
+The deployment of the edge1 service also uses a Kubernetes Deployment and Service, with similar specifications as the central service and every other service.
+
+![img_7.png](img_7.png)
+
+To ensure dynamic configuration and manage properties, we utilize a ConfigMap in Kubernetes. The ConfigMap named 'central' holds application properties for the central module, including the IP addresses of edge1 and edge2 services. This allows us to easily update and manage the configurations without modifying the code.
+
+![img_5.png](img_5.png)
+
 ## Demo deployment steps
 
 ### Configuration set-up
 
+To set up the configuration for deployment, you will need the following:
+
+- A local development environment with Maven installed.
+- An AWS account with the necessary permissions to create resources such as a cluster and node group.
+
 ### Data preparation
+
+The application already includes predefined mocks for pollution and traffic data. These mocks will be utilized during the execution of specific endpoints to simulate real-time data processing. No additional steps are required for data preparation in this case.
 
 ### Execution procedure
 
+1. Build the project: Open a command prompt or terminal in the root folder of the service and execute the following command to build the project using Maven:
+    ```
+    mvn clean package
+    ```
+
+2. Create a Docker image: Write a Dockerfile to define the Docker image configuration for your service. Dockerfile from central-cluster.
+    ```
+    FROM openjdk:17
+    WORKDIR /usr/src/central-service
+    COPY target/central-service-0.0.1-SNAPSHOT.jar /usr/src/central-service
+    CMD ["java", "-jar", "/usr/src/central-service/central-service-0.0.1-SNAPSHOT.jar"]
+    ```
+ 
+
+3. Push the Docker image to AWS Elastic Container Registry (ECR): Follow the instructions provided by AWS to set up an Elastic Container Registry (ECR) and push Docker image to ECR:
+- Go to Amazon ECR.
+- Create a repository.
+- Click on "View push commands".
+- Follow the instructions to push image.
+- Copy the image url.
+
+
+4. Check the cluster status: Use the AWS CLI to check the status of the cluster you have created. Run the following command:
+    ```
+    aws eks describe-cluster --region us-east-1 --name <your cluster> --query cluster.status
+    ```
+   Additionally, update the kubeconfig by running the following command:
+    ```
+    aws eks --region us-east-1 update-kubeconfig --name <your cluster>
+    ```
+
+5. Create and run a pod: Write a Kubernetes configuration file (`k8s.yaml`) for your service. Take inspiration from the example configuration provided earlier for the `central-service` and modify it to match your service's requirements. Ensure that you specify the correct Docker image URL from the ECR. Apply the configuration using the following command:
+    ```
+    kubectl apply -f k8s.yaml
+    ```
+
+6. Verify the pod status: Check the status of the pod by running the following command:
+    ```
+    kubectl get pod
+    ```
+   Wait until the status shows as `Running`.
+
+7. Access the deployed service: List the services using the following command to find the `EXTERNAL-IP` of the LoadBalancer:
+    ```
+    kubectl get svc
+    ```
+   Once you have the `EXTERNAL-IP`, access the service from a browser using the provided IP address and port number. For example, for the central cluster:
+    ```
+    <<External-IP>>:8250/central/data/
+    ```
+
+   In addition to accessing the deployed service, you can also retrieve mock data from external URLs by using specific endpoints. Modify the endpoint URLs in your service to fetch the desired mock data during the results presentation phase.
+
+Repeat the above execution procedure for each service in your application, following the specific configurations and requirements for each service.
+
 ### Results presentation
 
+After accessing each deployed service using the provided IP address and port number, analyze and present the results as required for your project documentation. This may include retrieving data from the mocked URLs using specific endpoints and showcasing the obtained data or any other processed information from the deployed services.
+
+
 ## Summary
+
+In conclusion, this project provided us with valuable insights and knowledge about Kubernetes Control Plane (KCP) solutions and their potential applications in managing smart city systems. While our initial aspirations were to showcase a fully functional system, we encountered difficulties in successfully running KCP and were unable to achieve our original goals. We deeply regret the challenges we faced and acknowledge our inability to implement KCP as planned, which led us to adapt the project to a more manageable problem.
+
+Throughout the project, we dedicated significant effort to understanding containerization, Kubernetes, and the intricacies of managing complex distributed systems. By leveraging Spring microservices with the Spring Kubernetes Cluster framework, we were able to design and deploy resilient and scalable services.
+
+We relied on the AWS platform for hosting and deploying our system. AWS provided us with reliable infrastructure and a comprehensive range of services, including Amazon EC2 for container execution and Amazon S3 for data storage.
+
+Although we were unable to demonstrate a fully operational system, we are proud of the knowledge we gained and the progress we made. This project served as a valuable learning experience, highlighting the challenges and complexities associated with managing and securing Kubernetes clusters at scale.
+
+We sincerely apologize for not meeting our initial objectives and for the need to modify our project idea to tackle a more manageable problem. We recognize the importance of reflecting on our limitations and failures as an essential part of the learning process.
+
+Looking ahead, despite the challenges we faced in implementing KCP for this project, we are determined to build upon the knowledge we acquired and  aspire to undertake a dedicated project focused on Kubernetes Control Plane (KCP), aiming to fulfill our original goal of effectively managing and securing Kubernetes clusters.
 
 ## References
