@@ -14,7 +14,14 @@ Jeśli pojawi się problem z tworzeniem klastra, poprawiamy subnety, pozbywając
 
 W czasie kiedy tworzy się cluster i node grupa można przejść do następnych kroków.
 
-## Budowanie projektu
+## Stworzenie repo i logowanie
+
+Korzystając z AWS Elastic Container Registry (ECR) tworzymy dwa repozytoria - `edge` oraz `central`, gdzie będziemy przechowywać obrazki serwisów.
+
+Robimy to tak, jak w instrukcji pod linkiem.
+Logujemy się do ECR (pierwsza z komend dostępnych pod "View push commands") i przechodzimy do następnego kroku.
+
+## Budowanie projektu paczek i upload na AWS ECR
 
 Stwórz zbudowany serwis w formacie .jar korzystając z mavena, np. tak:
 
@@ -23,45 +30,30 @@ Stwórz zbudowany serwis w formacie .jar korzystając z mavena, np. tak:
 mvn clean package
 ```
 
-## Tworzenie obrazka dokerowego
+Odpowiednie `Dockerfile` znajdują się w serwisie `central` oraz `edge`.
 
-`Dockerfile` powinien wyglądać tak:
-
+Budujemy obrazek:
 ```
-FROM openjdk:17
-WORKDIR /usr/src/central-service
-COPY target/central-service-0.0.1-SNAPSHOT.jar /usr/src/central-service
-CMD ["java", "-jar", "/usr/src/central-service/central-service-0.0.1-SNAPSHOT.jar"]
+docker build -t <service-name> .
 ```
 
-Dla central-service jest już stworzony. Można podmienić plik .jar na swój, aczkolwiek ścieżka powinna być taka sama.
+Dodatkowo tagujemy obrazek (trzecie z poleceń dostępnych pod "View push commands").
 
+I wrzucamy obrazek do repozytorium (czwarta komenda).
 
-## Stworzenie repo i dodanie obrazka
-
-Robimy to tak, jak w instrukcji pod linkiem:
-
-### Elastic Container Registry (ECR) Setup
-- Go to Amazon ECR.
-- Create a repository.
-- Click on "View push commands".
-- Follow the instructions to push image.
-- Copy the image url.
-
-W tym kroku trzeba zbudować u siebie obrazek Dockerowy serwisu i wrzucić go na AWS Elastic Container Registry (EKR).
-
+Powtarzamy dla drugiego serwisu.
 
 ## Sprawdzamy, czy klaster stoi i jest gites
 
-W następnym kroku będziemy tworzyć w tym clustrze poda.
+W następnym kroku będziemy tworzyć w tym clustrze pody, korzystając z wrzuconych obrazków.
 
 ```
-aws eks describe-cluster --region us-east-1 --name <your cluster> --query cluster.status
+aws eks describe-cluster --region us-east-1 --name my-cluster --query cluster.status
 ```
 
 Nie wiem co to robi, ale trzeba puścić bo potem nie zadziała:
 ```
-aws eks --region us-east-1 update-kubeconfig --name mein-cluster
+aws eks --region us-east-1 update-kubeconfig --name my-cluster
 ```
 
 ## Tworzymy i uruchamiamy poda z naszym serwisem

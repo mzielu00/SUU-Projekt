@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: central-service
-          image: 052724743115.dkr.ecr.us-east-1.amazonaws.com/central:latest
+          image: 531130751634.dkr.ecr.us-east-1.amazonaws.com/central-service:latest
           resources:
             limits:
               memory: "512Mi"

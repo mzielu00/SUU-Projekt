@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: edge1
-          image: 052724743115.dkr.ecr.us-east-1.amazonaws.com/my_repo:latest
+          image: 531130751634.dkr.ecr.us-east-1.amazonaws.com/edge:latest
           resources:
             limits:
               memory: "512Mi"
@@ -21,6 +21,14 @@ spec:
           ports:
             - name: tcp
               containerPort: 8260
+          env:
+            - name: district
+              value: "huta"
+            - name: trafficEnabled
+              value: "true"
+            - name: airPollutionEnabled
+              value: "true"
+
 ---
 apiVersion: v1
 kind: Service

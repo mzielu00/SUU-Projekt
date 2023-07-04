@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edge2
+spec:
+  selector:
+    matchLabels:
+      app: edge2
+  template:
+    metadata:
+      labels:
+        app: edge2
+    spec:
+      containers:
+        - name: edge2
+          image: 531130751634.dkr.ecr.us-east-1.amazonaws.com/edge:latest
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - name: tcp
+              containerPort: 8260
+          env:
+            - name: district
+              value: "midtown"
+            - name: trafficEnabled
+              value: "false"
+            - name: airPollutionEnabled
+              value: "true"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: edge2
+spec:
+  selector:
+    app: edge2
+  ports:
+    - port: 8260
+      targetPort: 8260
+  type: LoadBalancer
