@@ -167,7 +167,7 @@ The application already includes predefined mocks for pollution and traffic data
 
 To deploy all services connected together you have to deploy several pods, starting up with edge services, then when they are up you can provide their external-IP adresses into `configMap.yaml` file.
 
-####Deployment of single service:
+#### Deployment of single service:
 
 1. Build the project: Open a command prompt or terminal in the root folder of the service and execute the following command to build the project using Maven:
     ```
@@ -217,10 +217,22 @@ To deploy all services connected together you have to deploy several pods, start
     ```
     <<External-IP>>:8250/central/data/
     ```
-
-   In addition to accessing the deployed service, you can also retrieve mock data from external URLs by using specific endpoints. Modify the endpoint URLs in your service to fetch the desired mock data during the results presentation phase.
+    Under the `<<External-IP>>:8250/central/data/traffic` the average traffic value can be found, and under the `<<External-IP>>:8250/central/data/air`               information about the average air pollution.
 
 Repeat the above execution procedure for each service in your application, following the specific configurations and requirements for each service.
+
+ In addition, to accessing the deployed service, you can also retrieve mock data from external URLs by using specific endpoints. Modify the endpoint URLs in       your service to fetch the desired mock data during the results presentation phase.
+For the example edge1 you can obtain the results under the following urls:
+```
+<<External-Edge1-IP>>:8260/huta/traffic/average
+<<External-Edge1-IP>>:8260/huta/air/average
+```
+
+The edge2 endpoints are:
+```
+<<External-Edge2-IP>>:8270/midtown/traffic/average
+<<External-Edge2-IP>>:8270/midtown/air/average
+```
 
 ### Results presentation
 
@@ -242,3 +254,7 @@ We sincerely apologize for not meeting our initial objectives and for the need t
 Looking ahead, despite the challenges we faced in implementing KCP for this project, we are determined to build upon the knowledge we acquired and  aspire to undertake a dedicated project focused on Kubernetes Control Plane (KCP), aiming to fulfill our original goal of effectively managing and securing Kubernetes clusters.
 
 ## References
+- Kubernetes https://kubernetes.io/docs/setup/
+- KCP https://docs.kcp.io/kcp/main/
+- Java Spring Boot: https://docs.kcp.io/kcp/main/
+- Spring Boot Kubernetes:https://spring.io/guides/gs/spring-boot-kubernetes/
