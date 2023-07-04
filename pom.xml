@@ -11,8 +11,6 @@
     <modules>
         <module>central-service</module>
         <module>edge</module>
-        <module>edge2</module>
-        <module>edge3</module>
     </modules>
 
     <properties>

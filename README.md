@@ -126,9 +126,9 @@ Please note that the provided links are subject to change. It is recommended to 
 
 ### Infrastructure as Code approach
 
-In our microservices Java Spring project, we have adopted the Infrastructure as Code approach to manage our infrastructure and deployments efficiently. We have divided our code into different modules, each representing a distinct service such as the central service, edge1, edge2, and so on. To facilitate testing and development, we have created mocks for pollution and traffic data, which we use when retrieving data from specific endpoints.
+In our microservices Java Spring project, we have adopted the Infrastructure as Code approach to manage our infrastructure and deployments efficiently. We have divided our code into different modules, each representing a distinct service such as the central service and edge service which can be replicated for different city area. To facilitate testing and development, we have created mocks for pollution and traffic data, which we use when retrieving data from specific endpoints.
 
-![img_6.png](img_6.png)
+![img_2.png](img_2.png)
 
 The central service, implemented in the CentralController class, handles requests and acts as a gateway to the other services. For example it communicates with the edge1 service using the Edge1Connector interface, which is a Feign client. This interface defines the endpoints and methods to retrieve average traffic congestion and air pollution data from edge1.
 
@@ -165,17 +165,18 @@ The application already includes predefined mocks for pollution and traffic data
 
 ### Execution procedure
 
+To deploy all services connected together you have to deploy several pods, starting up with edge services, then when they are up you can provide their external-IP adresses into `configMap.yaml` file.
+
+####Deployment of single service:
+
 1. Build the project: Open a command prompt or terminal in the root folder of the service and execute the following command to build the project using Maven:
     ```
     mvn clean package
     ```
 
-2. Create a Docker image: Write a Dockerfile to define the Docker image configuration for your service. Dockerfile from central-cluster.
+2. Build a Docker image (In every module there is a `Dockerfile`)
     ```
-    FROM openjdk:17
-    WORKDIR /usr/src/central-service
-    COPY target/central-service-0.0.1-SNAPSHOT.jar /usr/src/central-service
-    CMD ["java", "-jar", "/usr/src/central-service/central-service-0.0.1-SNAPSHOT.jar"]
+    docker build -t <service-name> .
     ```
  
 
@@ -184,7 +185,8 @@ The application already includes predefined mocks for pollution and traffic data
 - Create a repository.
 - Click on "View push commands".
 - Follow the instructions to push image.
-- Copy the image url.
+- Copy the image URI.
+- Add image URI to k8s deploy file for intance: `central-pod-config.yaml` 
 
 
 4. Check the cluster status: Use the AWS CLI to check the status of the cluster you have created. Run the following command:
@@ -196,9 +198,9 @@ The application already includes predefined mocks for pollution and traffic data
     aws eks --region us-east-1 update-kubeconfig --name <your cluster>
     ```
 
-5. Create and run a pod: Write a Kubernetes configuration file (`k8s.yaml`) for your service. Take inspiration from the example configuration provided earlier for the `central-service` and modify it to match your service's requirements. Ensure that you specify the correct Docker image URL from the ECR. Apply the configuration using the following command:
+5. Create and run a pod: Write a Kubernetes configuration file (`file_name.yaml`) for your service or use provided one. Take inspiration from the example configuration provided earlier for the `central-service` and modify it to match your service's requirements. Ensure that you specify the correct Docker image URI from the ECR. Apply the configuration using the following command:
     ```
-    kubectl apply -f k8s.yaml
+    kubectl apply -f <file_name.yaml>
     ```
 
 6. Verify the pod status: Check the status of the pod by running the following command:
