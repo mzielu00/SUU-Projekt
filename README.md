@@ -258,3 +258,4 @@ Looking ahead, despite the challenges we faced in implementing KCP for this proj
 - KCP https://docs.kcp.io/kcp/main/
 - Java Spring Boot: https://docs.kcp.io/kcp/main/
 - Spring Boot Kubernetes:https://spring.io/guides/gs/spring-boot-kubernetes/
+- Guide to Spring Cloud Kubernetes: https://www.baeldung.com/spring-cloud-kubernetes
